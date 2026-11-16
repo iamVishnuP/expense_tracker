@@ -32,4 +32,5 @@ urlpatterns = [
 
     path('expenses/', ExpenseListCreateView.as_view()),
     path('expenses/<int:pk>/', ExpenseRetreieveUpdateDeleteView.as_view()),
+
 ]
