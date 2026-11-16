@@ -5,11 +5,19 @@
 POST http://127.0.0.1:8000/user/register/
 Content-Type: application/json
 
+# {
+#     "username":"django",
+#     "email":"django@gmail.com",
+#     "password":"django@123",
+#     "phone":9033022304,
+#     "dob":"2026-07-07"
+# }
+
 {
-    "username":"django",
-    "email":"django@gmail.com",
-    "password":"django@123",
-    "phone":9033022304,
+    "username":"vishnu",
+    "email":"vishnu@gmail.com",
+    "password":"vishnu@123",
+    "phone":9063022304,
     "dob":"2026-07-07"
 }
 
@@ -33,3 +41,34 @@ Authorization: Basic django:django@123
     "category":"food",
     "amount":300
 }
+
+# api call to retreive
+###
+GET  http://127.0.0.1:8000/expenses/1/
+Accept: application/json
+Authorization: Basic vishnu:vishnu@123
+
+
+# api call to update
+###
+PUT   http://127.0.0.1:8000/expenses/1/
+Content-Type: application/json
+Authorization: Basic vishnu:vishnu@123
+
+{
+  "id": 1,
+  "title": "snacks",
+  "category": "food",
+  "amount": "400.00",
+  "description": null,
+  "payment_method": "upi",
+  "bill_image": null,
+  "created_at": "2026-11-12T09:07:36.551543Z",
+  "owner": 1
+}
+
+# api call to delete
+###
+DELETE http://127.0.0.1:8000/expenses/1/
+Authorization: Basic vishnu:vishnu@123
+

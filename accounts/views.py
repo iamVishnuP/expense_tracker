@@ -18,4 +18,4 @@ class SignupView(APIView):
             serializer_instance.save()
             return  Response(serializer_instance.data)
         else:
-            return Response(serializer_instance.error)
+            return Response(serializer_instance.errors)
