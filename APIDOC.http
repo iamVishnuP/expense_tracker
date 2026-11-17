@@ -22,38 +22,51 @@ Content-Type: application/json
 }
 
 
+#--------------------TOKEN----------------------------#
+
+# api call to generate token
+###
+POST http://127.0.0.1:8000/token/
+Content-Type: application/json
+
+{
+    "username":"django",
+    "password":"django@123"
+}
+
+
 #---------------EXPENSES----------------#
 
 # api call to list
 ###
 GET  http://127.0.0.1:8000/expenses/
 Accept: application/json
-Authorization: Basic django:django@123
+Authorization: Token 3ba689f6dd0697244119d7106ce5a773108de34d
 
 # api call to create
 ###
 POST   http://127.0.0.1:8000/expenses/
 Content-Type: application/json
-Authorization: Basic django:django@123
+Authorization: Token  3ba689f6dd0697244119d7106ce5a773108de34d
 
 {
-    "title":"snacks",
+    "title":"Chakkavarthath",
     "category":"food",
-    "amount":300
+    "amount":100
 }
 
 # api call to retreive
 ###
 GET  http://127.0.0.1:8000/expenses/1/
 Accept: application/json
-Authorization: Basic vishnu:vishnu@123
+Authorization: Token 3ba689f6dd0697244119d7106ce5a773108de34d
 
 
 # api call to update
 ###
 PUT   http://127.0.0.1:8000/expenses/1/
 Content-Type: application/json
-Authorization: Basic vishnu:vishnu@123
+Authorization: Token 3ba689f6dd0697244119d7106ce5a773108de34d
 
 {
   "id": 1,
@@ -70,5 +83,14 @@ Authorization: Basic vishnu:vishnu@123
 # api call to delete
 ###
 DELETE http://127.0.0.1:8000/expenses/1/
-Authorization: Basic vishnu:vishnu@123
+Authorization: Token 3ba689f6dd0697244119d7106ce5a773108de34d
 
+
+
+#------------------------ summary -----------------------
+
+# api call to test summary
+###
+GET http://127.0.0.1:8000/expenses/summary/
+Accept: application/json
+Authorization: Token 3ba689f6dd0697244119d7106ce5a773108de34d 

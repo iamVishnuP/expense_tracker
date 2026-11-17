@@ -19,7 +19,9 @@ from django.urls import path
 
 from accounts.views import SignupView
 
-from transactions.views import ExpenseListCreateView,ExpenseRetreieveUpdateDeleteView
+from rest_framework.authtoken.views import ObtainAuthToken
+
+from transactions.views import ExpenseListCreateView,ExpenseRetreieveUpdateDeleteView,ExpenseSummaryView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,5 +34,9 @@ urlpatterns = [
 
     path('expenses/', ExpenseListCreateView.as_view()),
     path('expenses/<int:pk>/', ExpenseRetreieveUpdateDeleteView.as_view()),
+    path('expenses/summary/', ExpenseSummaryView.as_view()),
+
+    #token
+    path('token/', ObtainAuthToken.as_view()),
 
 ]

@@ -18,7 +18,7 @@ from transactions.permissions import IsOwner
 
 class ExpenseListCreateView(APIView):
 
-    authentication_classes=[authentication.BasicAuthentication]
+    authentication_classes=[authentication.TokenAuthentication]
     permission_classes=[permissions.IsAuthenticated]
 
     def get(self,request):
@@ -42,7 +42,7 @@ class ExpenseListCreateView(APIView):
             return Response(serializer_instance.errors)
 
 class ExpenseRetreieveUpdateDeleteView(APIView):
-    authentication_classes=[authentication.BasicAuthentication]
+    authentication_classes=[authentication.TokenAuthentication]
     permission_classes=[IsOwner]
 
     def get(self,request,pk=None):
@@ -79,7 +79,7 @@ class ExpenseRetreieveUpdateDeleteView(APIView):
 
 class ExpenseSummaryView(APIView):
 
-    authentication_classes=[authentication.BasicAuthentication]
+    authentication_classes=[authentication.TokenAuthentication]
     permission_classes=[permissions.IsAuthenticated]
 
     def get(self,request):
@@ -89,7 +89,23 @@ class ExpenseSummaryView(APIView):
             "todays_total":0,
             "monthly_total":0
         }
+       #to get curr date
         curr_date=datetime.today().date()
-        todays_total= auth_user_expense.filter(created_at=curr_date).values("amount").aggregate(total=Sum("amount")).get("total")
+
+        #to get curr month and year
+        curr_month=datetime.today().month
+        curr_year=datetime.today().year
+
+        # to get monthly expenses
+        monthly_total= auth_user_expense.filter(created_at__month=curr_month,created_at__year=curr_year).values("amount").aggregate(
+                                                                                                    total=Sum("amount")).get("total")
+        # to get todays expenses
+        todays_total= auth_user_expense.filter(created_at__date=curr_date).values("amount").aggregate(total=Sum("amount")).get("total")
         response_data["todays_total"]=todays_total
+        response_data["monthly_total"]=monthly_total
         return Response(response_data)
+
+    
+
+
+
